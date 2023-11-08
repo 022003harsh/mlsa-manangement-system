@@ -1,33 +1,40 @@
-export const sidebarMenu = [
+import { SideNavItem } from '@/types/types';
+
+export const SIDEBAR_MENU: SideNavItem[] = [
   {
-    iconURL: "",
+    iconURL: "/icon/sidebar-open.svg",
     name: "Dashboard",
     path: "/",
-
-    submenu: [
+    submenu: true,
+    subMenuItems: [
       {
-        iconURL: "",
+        iconURL: "/icon/user.svg",
         name: "Members Dashboard",
         path: "/members-dashboard",
       },
       {
-        iconURL: "",
+        iconURL: "/icon/calendar-check-2.svg",
         name: "Events Dashboard",
         path: "/events-dashboard",
       },
     ],
   },
   {
-    icons_URL: "",
+    iconURL: "/icon/file-edit.svg",
     name: "Forms",
     path: "/",
-
-    submenu: [
+    submenu: true,
+    subMenuItems: [
       {
-        iconURL: "",
+        iconURL: "/icon/file-edit.svg",
         name: "Member Form",
         path: "/members-dashboard",
       },
     ],
   },
+  {
+    iconURL: "/icon/file-edit.svg",
+    name: "Settings",
+    path: "/settings",
+  }
 ];

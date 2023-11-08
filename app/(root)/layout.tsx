@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "@/components/shared/navbar/Navbar";
 import Sidebar from "@/components/shared/sidebar/Sidebar";
+import MarginWidthWrapper from "@/components/shared/sidebar/margin-width-weapper";
+import PageWrapper from "@/components/shared/sidebar/page-wrapper";
 
 export default function RootLayout({
   children,
@@ -8,12 +10,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="overflow-x-hidden">
-      <Navbar />
-      <div className="flex">
-        <Sidebar />
-        <div className=" min-w-[85vw] ">{children}</div>
-      </div>
+    <div className="flex overflow-x-hidden">
+      <Sidebar />
+        <main className="flex-1">
+        <MarginWidthWrapper>
+              <Navbar />
+              <PageWrapper>{children}</PageWrapper>
+            </MarginWidthWrapper>
     </main>
+    </div>
+    
   );
 }

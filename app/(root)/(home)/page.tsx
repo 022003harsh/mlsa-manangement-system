@@ -1,30 +1,24 @@
 import React from "react";
 
 const Home = () => {
-  return (
-    <>
-      <div className="border-2">
-        Home Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-        maiores quisquam obcaecati neque recusandae laudantium ratione eveniet
-        tempora totam. Praesentium veniam aspernatur consectetur, itaque dolorem
-        corporis consequatur a incidunt tenetur!
-      </div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div>
+  return <div className="border-2">Home
+  <span className="font-bold text-4xl">Projects</span>
 
+<div className="border-dashed border border-zinc-500 w-full h-12 rounded-lg"></div>
+<div className="border-dashed border border-zinc-500 w-full h-64 rounded-lg"></div><span className="font-bold text-4xl">Projects</span>
 
-      </div>
-      <div>
+<div className="border-dashed border border-zinc-500 w-full h-12 rounded-lg"></div>
+<div className="border-dashed border border-zinc-500 w-full h-64 rounded-lg"></div><span className="font-bold text-4xl">Projects</span>
 
-      </div>
-      <div>
-        
-      </div>
-    </>
-  );
+<div className="border-dashed border border-zinc-500 w-full h-12 rounded-lg"></div>
+<div className="border-dashed border border-zinc-500 w-full h-64 rounded-lg"></div><span className="font-bold text-4xl">Projects</span>
+
+<div className="border-dashed border border-zinc-500 w-full h-12 rounded-lg"></div>
+<div className="border-dashed border border-zinc-500 w-full h-64 rounded-lg"></div><span className="font-bold text-4xl">Projects</span>
+
+<div className="border-dashed border border-zinc-500 w-full h-12 rounded-lg"></div>
+<div className="border-dashed border border-zinc-500 w-full h-64 rounded-lg"></div>
+  </div>;
 };
 
 export default Home;
