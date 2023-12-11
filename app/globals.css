@@ -77,3 +77,34 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Add this to your CSS file */
+.scrollable-content {
+  scrollbar-width: thin; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.scrollable-content::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+/* scrollbar in tables */
+.custom-scrollbar {
+  max-height: 500px; /* Set your desired max height */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #4a5568 #edf2f7; /* Customize the scrollbar colors */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #D9D9D9; /* Customize the thumb color */
+  border-radius: 30px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #FFF; /* Customize the track color */
+}
