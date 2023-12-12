@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Searchdetails from "@/components/shared/topsection/Searchdetails";
 import { MEMBERS_DATA } from "@/constants";
-import { useState } from "react";
 import Leads from "@/components/core/member/Leads";
 import Modal from "@/components/core/forms/shared/Modal";
 import Memberstable from "@/components/core/member/Memberstable";
@@ -33,9 +32,9 @@ const Member: React.FC = () => {
 
       <Leads />
 
-      <div className="flex flex-row space-x-[1.5rem] min-h-[38.1rem] pr-[0.5rem] mt-[2.6rem]">
+      <div className="mt-[2.6rem] flex min-h-[38.1rem] flex-row space-x-[1.5rem] pr-[0.5rem]">
         <Memberstable />
-        <div className="w-[30%] min-h-full border ml-[1.5rem]"></div>
+        <div className="ml-[1.5rem] min-h-full w-[30%] border"></div>
       </div>
 
       <Modal

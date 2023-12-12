@@ -4,12 +4,12 @@ export interface IMember extends Document {
   clerkId: string;
   name: string;
   kiit_email_id: string;
-  personal_email_id: string;
-  password: string;
+  email: string;
+  password?: string;
   phone: number;
   picture: string;
   current_year: number;
-  branch: string;
+  branch: "CSE" | "ECE" | "EEE" | "ME" | "CE" | "IT" | "OTHERS";
   roll_number: number;
   recruit_date: Date;
   position:
@@ -35,6 +35,7 @@ export interface IMember extends Document {
   x_URL?: string;
   drive_URL?: string;
   domain: Schema.Types.ObjectId;
+  type: "member" | "lead";
 }
 
 const MemberSchema = new Schema({
@@ -46,9 +47,18 @@ const MemberSchema = new Schema({
   phone: { type: Number, required: true },
   picture: { type: String, required: true },
   current_year: { type: Number, required: true },
-  branch: { type: String, required: true },
+  branch: {
+    type: String,
+    enum: ["CSE", "ECE", "EEE", "ME", "CE", "IT", "OTHERS"],
+    required: true,
+  },
   roll_number: { type: Number, required: true },
   recruit_date: { type: Date, required: true },
+  type: {
+    type: String,
+    enum: ["member", "lead"],
+    required: true,
+  },
   position: {
     type: String,
     enum: [

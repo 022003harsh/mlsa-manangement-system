@@ -1,13 +1,11 @@
 "use client";
 
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { FormDataSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler } from "react-hook-form";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "./Button";
 import { Divide } from "lucide-react";
 
@@ -70,12 +68,12 @@ const Form = ({ onClickFunction }: any) => {
   };
   return (
     <div className="flex flex-col space-y-[1.4rem]">
-      <div className="w-full min-h-[40.6rem] h-[40.6rem] rounded-[0.3rem] border border-[#0000001f]">
+      <div className="h-[40.6rem] min-h-[40.6rem] w-full rounded-[0.3rem] border border-[#0000001f]">
         {currentStep === 0 && (
-          <div className="w-full h-full flex items-center justify-center border">
-            <div className="flex flex-col justify-center items-center w-[13.1rem]">
-              <div className="flex items-center justify-between w-full rounded-[0.6rem] px-[1.4rem] py-[0.8rem] bg-black">
-                <div className="text-white text-[1.4rem] leading-[2.4rem] font-medium cursor-pointer">
+          <div className="flex h-full w-full items-center justify-center border">
+            <div className="flex w-[13.1rem] flex-col items-center justify-center">
+              <div className="flex w-full items-center justify-between rounded-[0.6rem] bg-black px-[1.4rem] py-[0.8rem]">
+                <div className="cursor-pointer text-[1.4rem] font-medium leading-[2.4rem] text-white">
                   Upload CSV
                 </div>
                 <svg
@@ -94,16 +92,16 @@ const Form = ({ onClickFunction }: any) => {
                   />
                 </svg>
               </div>
-              <div className="flex items-center justify-center w-full gap-[0.2rem]">
-                <div className="border-b mt-1 w-full text-[#94A3B8B2]"></div>
-                <div className="text-[#94A3B8B2] text-[1.2rem] font-medium leading-[2.4rem]">
+              <div className="flex w-full items-center justify-center gap-[0.2rem]">
+                <div className="mt-1 w-full border-b text-[#94A3B8B2]"></div>
+                <div className="text-[1.2rem] font-medium leading-[2.4rem] text-[#94A3B8B2]">
                   or
                 </div>
-                <div className="border-b mt-1 w-full text-[#94A3B8B2]"></div>
+                <div className="mt-1 w-full border-b text-[#94A3B8B2]"></div>
               </div>
 
               <div
-                className="w-full px-[1.6rem] py-[0.8rem] text-[1.4rem] font-medium leading-[2.4rem] rounded-[0.6rem] border border-black cursor-pointer"
+                className="w-full cursor-pointer rounded-[0.6rem] border border-black px-[1.6rem] py-[0.8rem] text-[1.4rem] font-medium leading-[2.4rem]"
                 onClick={() => setCurrentStep(currentStep + 1)}
               >
                 Enter Manually
@@ -112,7 +110,7 @@ const Form = ({ onClickFunction }: any) => {
           </div>
         )}
 
-        <form className=" w-full h-full " onSubmit={handleSubmit(processForm)}>
+        <form className=" h-full w-full " onSubmit={handleSubmit(processForm)}>
           {currentStep === 1 && (
             <>
               <motion.div
@@ -120,8 +118,8 @@ const Form = ({ onClickFunction }: any) => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                <div className="py-[1.85rem] px-[2.6rem] flex flex-col space-y-[2.1rem] w-full h-full">
-                  <div className="flex flex-col space-y-[0.6rem] relative">
+                <div className="flex h-full w-full flex-col space-y-[2.1rem] px-[2.6rem] py-[1.85rem]">
+                  <div className="relative flex flex-col space-y-[0.6rem]">
                     <label
                       htmlFor="Name"
                       className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
@@ -135,17 +133,17 @@ const Form = ({ onClickFunction }: any) => {
                         {...register("Name")}
                         autoComplete="given-name"
                         placeholder="Name"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                        className="w-full rounded-[0.6rem] border border-[#94A3B8] px-[1.2rem] py-[0.8rem] text-[1.6rem] leading-[2.4rem] text-[#94A3B8] outline-none"
                       />
                       {errors.Name?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
+                        <p className="absolute -bottom-[1.4rem] left-[0rem] mt-2 text-[1rem] text-red-400">
                           {errors.Name.message}
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex flex-col space-y-[0.6rem] relative">
+                  <div className="relative flex flex-col space-y-[0.6rem]">
                     <label
                       htmlFor="RollNumber"
                       className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
@@ -159,17 +157,17 @@ const Form = ({ onClickFunction }: any) => {
                         {...register("RollNumber")}
                         autoComplete="identical-name"
                         placeholder="Roll Number"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                        className="w-full rounded-[0.6rem] border border-[#94A3B8] px-[1.2rem] py-[0.8rem] text-[1.6rem] leading-[2.4rem] text-[#94A3B8] outline-none"
                       />
                       {errors.RollNumber?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
+                        <p className="absolute -bottom-[1.4rem] left-[0rem] mt-2 text-[1rem] text-red-400">
                           {errors.RollNumber.message}
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex flex-col space-y-[0.6rem] relative">
+                  <div className="relative flex flex-col space-y-[0.6rem]">
                     <label
                       htmlFor="Gender"
                       className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
@@ -183,17 +181,17 @@ const Form = ({ onClickFunction }: any) => {
                         {...register("Gender")}
                         autoComplete="Gender"
                         placeholder="Gender"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                        className="w-full rounded-[0.6rem] border border-[#94A3B8] px-[1.2rem] py-[0.8rem] text-[1.6rem] leading-[2.4rem] text-[#94A3B8] outline-none"
                       />
                       {errors.Gender?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
+                        <p className="absolute -bottom-[1.4rem] left-[0rem] mt-2 text-[1rem] text-red-400">
                           {errors.Gender.message}
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex flex-col space-y-[0.6rem] relative">
+                  <div className="relative flex flex-col space-y-[0.6rem]">
                     <label
                       htmlFor="Year"
                       className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
@@ -207,10 +205,10 @@ const Form = ({ onClickFunction }: any) => {
                         {...register("Year")}
                         autoComplete="family-name"
                         placeholder="Year"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                        className="w-full rounded-[0.6rem] border border-[#94A3B8] px-[1.2rem] py-[0.8rem] text-[1.6rem] leading-[2.4rem] text-[#94A3B8] outline-none"
                       />
                       {errors.Year?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
+                        <p className="absolute -bottom-[1.4rem] left-[0rem] mt-2 text-[1rem] text-red-400">
                           {errors.Year.message}
                         </p>
                       )}
@@ -222,15 +220,15 @@ const Form = ({ onClickFunction }: any) => {
           )}
           {currentStep === 2 && (
             <>
-              <div className="h-full flex flex-col w-full">
+              <div className="flex h-full w-full flex-col">
                 <motion.div
                   initial={{ x: delta >= 0 ? "2%" : "-2%", opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="h-full"
                 >
-                  <div className="px-[2.6rem] flex flex-col items-center justify-center space-y-[2.1rem] w-full h-full">
-                    <div className="flex flex-col w-full space-y-[0.6rem] relative">
+                  <div className="flex h-full w-full flex-col items-center justify-center space-y-[2.1rem] px-[2.6rem]">
+                    <div className="relative flex w-full flex-col space-y-[0.6rem]">
                       <label
                         htmlFor="YearOfRecruitment"
                         className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
@@ -244,17 +242,17 @@ const Form = ({ onClickFunction }: any) => {
                           {...register("YearOfRecruitment")}
                           autoComplete="YearOfRecruitment"
                           placeholder="YearOfRecruitment"
-                          className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                          className="w-full rounded-[0.6rem] border border-[#94A3B8] px-[1.2rem] py-[0.8rem] text-[1.6rem] leading-[2.4rem] text-[#94A3B8] outline-none"
                         />
                         {errors.YearOfRecruitment?.message && (
-                          <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
+                          <p className="absolute -bottom-[1.4rem] left-[0rem] mt-2 text-[1rem] text-red-400">
                             {errors.YearOfRecruitment.message}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex flex-col w-full space-y-[0.6rem] relative">
+                    <div className="relative flex w-full flex-col space-y-[0.6rem]">
                       <label
                         htmlFor="Stream"
                         className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
@@ -268,17 +266,17 @@ const Form = ({ onClickFunction }: any) => {
                           {...register("Stream")}
                           autoComplete="identical-name"
                           placeholder="Stream"
-                          className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                          className="w-full rounded-[0.6rem] border border-[#94A3B8] px-[1.2rem] py-[0.8rem] text-[1.6rem] leading-[2.4rem] text-[#94A3B8] outline-none"
                         />
                         {errors.Stream?.message && (
-                          <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
+                          <p className="absolute -bottom-[1.4rem] left-[0rem] mt-2 text-[1rem] text-red-400">
                             {errors.Stream.message}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex flex-col w-full space-y-[0.6rem] relative">
+                    <div className="relative flex w-full flex-col space-y-[0.6rem]">
                       <label
                         htmlFor="Domain"
                         className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
@@ -292,10 +290,10 @@ const Form = ({ onClickFunction }: any) => {
                           {...register("Domain")}
                           autoComplete="Domain"
                           placeholder="Domain"
-                          className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                          className="w-full rounded-[0.6rem] border border-[#94A3B8] px-[1.2rem] py-[0.8rem] text-[1.6rem] leading-[2.4rem] text-[#94A3B8] outline-none"
                         />
                         {errors.Domain?.message && (
-                          <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
+                          <p className="absolute -bottom-[1.4rem] left-[0rem] mt-2 text-[1rem] text-red-400">
                             {errors.Domain.message}
                           </p>
                         )}
@@ -308,7 +306,7 @@ const Form = ({ onClickFunction }: any) => {
           )}
           {currentStep === 3 && (
             <>
-              <div className="h-full w-full flex flex-col items-center justify-center gap-3">
+              <div className="flex h-full w-full flex-col items-center justify-center gap-3">
                 <h2 className="text-4xl font-bold">Complete</h2>
                 <p className="text-2xl font-medium text-[#94A3B8]">
                   Thank you for your submission.
