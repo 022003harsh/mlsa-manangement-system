@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
+import React , { useState, ChangeEvent }  from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, ChangeEvent } from "react";
 
 interface SearchDetailsProps {
   data: any[]; // Replace 'any' with the actual type of your JSON data

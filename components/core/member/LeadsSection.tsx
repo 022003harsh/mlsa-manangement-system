@@ -1,7 +1,7 @@
 import React from "react";
 import { MEMBERS_DATA } from "@/constants";
-import Lead from "./Lead";
-import Headingcount from "@/components/shared/Headingcount";
+import Lead from "./LeadCard";
+import Headingcount from "@/components/shared/HeadingCount";
 
 const Leads = () => {
   return (
