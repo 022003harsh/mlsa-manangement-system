@@ -1,10 +1,10 @@
 "use client";
-import React ,{ useState } from "react";
-import Searchdetails from "@/components/shared/topsection/SearchDetails";
+import React, { useState } from "react";
+import Searchdetails from "@/components/shared/topsection/Searchdetails";
 import { MEMBERS_DATA } from "@/constants";
 import Leads from "@/components/core/member/LeadsSection";
 import Modal from "@/components/core/forms/shared/Modal";
-import Memberstable from "@/components/core/member/MembersTable";
+import Memberstable from "@/components/core/member/Memberstable";
 
 const Member: React.FC = () => {
   // const [searchResults, setSearchResults] = useState(MEMBERS_DATA);
