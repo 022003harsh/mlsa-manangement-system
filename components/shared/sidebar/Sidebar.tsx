@@ -5,14 +5,15 @@ import Link from "next/link";
 import { SIDEBAR_MENU } from "@/constants";
 import { MenuItem } from "./MenuItem";
 
-const Sidebar = () => {
+const Sidebar = () => { 
   return (
-    <div className="w-[20.7rem] bg-[#E2E8F0] h-screen flex-1 fixed flex">
-      <div className="flex flex-col space-y-[5rem] w-full px-[1.4rem]">
-        <div className="flex pt-[1.8rem] pl-[0.7rem] cursor-pointer">
+    <div className="fixed flex h-screen w-[20.7rem] flex-1 bg-[#E2E8F0]">
+      <div className="flex w-full flex-col space-y-[5rem] px-[1.4rem]">
+        <div className="flex cursor-pointer pl-[0.7rem] pt-[1.8rem]">
           <Link href="/profile" className="">
             <div className="flex items-center justify-center space-x-[1rem] ">
               <div>
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="57"
@@ -80,10 +81,10 @@ const Sidebar = () => {
               </div>
 
               <div>
-                <p className="text-black text-[1.4rem] font-medium leading-[1.6rem]">
+                <p className="text-[1.4rem] font-medium leading-[1.6rem] text-black">
                   Hi Harsh
                 </p>
-                <p className="text-[#94A3B8] text-[1rem] font-semibold leading-[1.6rem]">
+                <p className="text-[1rem] font-semibold leading-[1.6rem] text-[#94A3B8]">
                   View Profile
                 </p>
               </div>
