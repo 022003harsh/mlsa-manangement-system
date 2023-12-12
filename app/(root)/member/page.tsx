@@ -1,16 +1,15 @@
 "use client";
-import React from "react";
-import Searchdetails from "@/components/shared/topsection/Searchdetails";
+import React ,{ useState } from "react";
+import Searchdetails from "@/components/shared/topsection/SearchDetails";
 import { MEMBERS_DATA } from "@/constants";
-import { useState } from "react";
-import Leads from "@/components/core/member/Leads";
+import Leads from "@/components/core/member/LeadsSection";
 import Modal from "@/components/core/forms/shared/Modal";
-import Memberstable from "@/components/core/member/Memberstable";
+import Memberstable from "@/components/core/member/MembersTable";
 
 const Member: React.FC = () => {
-  const [searchResults, setSearchResults] = useState(MEMBERS_DATA);
+  // const [searchResults, setSearchResults] = useState(MEMBERS_DATA);
   const handleSearch = (results: any[]) => {
-    setSearchResults(results);
+    // setSearchResults(results);
   };
   const [showModal, setShowModal] = useState(false);
 
@@ -42,6 +41,7 @@ const Member: React.FC = () => {
         isvisible={showModal}
         onClose={() => setShowModal(false)}
         value={"member"}
+        feature={"form"}
       />
     </div>
   );

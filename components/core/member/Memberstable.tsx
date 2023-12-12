@@ -1,6 +1,6 @@
 import React from "react";
-import Headingcount from "@/components/shared/Headingcount";
-import  Filter  from "@/components/shared/table/Filter";
+import Headingcount from "@/components/shared/HeadingCount";
+import Filter from "@/components/shared/table/FilterSection";
 import Table from "@/components/shared/table/Table";
 
 const Memberstable = () => {

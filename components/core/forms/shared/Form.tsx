@@ -1,15 +1,12 @@
 "use client";
 
-import React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { FormDataSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler } from "react-hook-form";
-import { useForm } from "react-hook-form";
+import { SubmitHandler,useForm  } from "react-hook-form";
 import Button from "./Button";
-import { Divide } from "lucide-react";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -39,7 +36,6 @@ const Form = ({ onClickFunction }: any) => {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     trigger,
     formState: { errors },
@@ -68,13 +64,21 @@ const Form = ({ onClickFunction }: any) => {
       setCurrentStep((step) => step + 1);
     }
   };
+
+  const prev = () => {
+    if (currentStep > 0) {
+      setPreviousStep(currentStep);
+      setCurrentStep((step) => step - 1);
+    }
+  };
+
   return (
     <div className="flex flex-col space-y-[1.4rem]">
       <div className="w-full min-h-[40.6rem] h-[40.6rem] rounded-[0.3rem] border border-[#0000001f]">
         {currentStep === 0 && (
           <div className="w-full h-full flex items-center justify-center border">
-            <div className="flex flex-col justify-center items-center w-[13.1rem]">
-              <div className="flex items-center justify-between w-full rounded-[0.6rem] px-[1.4rem] py-[0.8rem] bg-black">
+            <div className="flex flex-col justify-center items-center">
+              <div className="flex items-center justify-between space-x-[2rem] rounded-[0.6rem] px-[1.4rem] py-[0.8rem] bg-black">
                 <div className="text-white text-[1.4rem] leading-[2.4rem] font-medium cursor-pointer">
                   Upload CSV
                 </div>
@@ -103,7 +107,7 @@ const Form = ({ onClickFunction }: any) => {
               </div>
 
               <div
-                className="w-full px-[1.6rem] py-[0.8rem] text-[1.4rem] font-medium leading-[2.4rem] rounded-[0.6rem] border border-black cursor-pointer"
+                className="px-[1.6rem] py-[0.8rem] text-[1.4rem] font-medium leading-[2.4rem] rounded-[0.6rem] border border-black cursor-pointer"
                 onClick={() => setCurrentStep(currentStep + 1)}
               >
                 Enter Manually
@@ -177,14 +181,19 @@ const Form = ({ onClickFunction }: any) => {
                       Gender
                     </label>
                     <div className="mt-2">
-                      <input
+                      <select
                         id="Gender"
-                        type="Gender"
                         {...register("Gender")}
                         autoComplete="Gender"
-                        placeholder="Gender"
                         className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                      />
+                      >
+                        <option value="" selected>
+                          Select from dropdown
+                        </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="others">Others</option>
+                      </select>
                       {errors.Gender?.message && (
                         <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
                           {errors.Gender.message}
@@ -200,15 +209,20 @@ const Form = ({ onClickFunction }: any) => {
                     >
                       Year
                     </label>
-                    <div className="w-full">
-                      <input
-                        type="text"
+                    <div className="mt-2 relative">
+                      <select
                         id="Year"
                         {...register("Year")}
                         autoComplete="family-name"
-                        placeholder="Year"
                         className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                      />
+                      >
+                        <option value="" selected>
+                          Select from dropdown
+                        </option>
+                        <option value="1st">1st</option>
+                        <option value="2nd">2nd</option>
+                        <option value="3rd">3rd</option>
+                      </select>
                       {errors.Year?.message && (
                         <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
                           {errors.Year.message}
@@ -237,15 +251,22 @@ const Form = ({ onClickFunction }: any) => {
                       >
                         Year of Recruitment
                       </label>
-                      <div className="w-full">
-                        <input
-                          type="text"
+                      <div className="w-full relative">
+                        <select
                           id="YearOfRecruitment"
                           {...register("YearOfRecruitment")}
                           autoComplete="YearOfRecruitment"
-                          placeholder="YearOfRecruitment"
                           className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                        />
+                        >
+                          <option value="" selected>
+                            Select from dropdown
+                          </option>
+                          <option value="2018-2019">2018-2019</option>
+                          <option value="2019-2020">2019-2020</option>
+                          <option value="2020-2021">2020-2021</option>
+                          <option value="2021-2022">2021-2022</option>
+                          <option value="2022-2023">2022-2023</option>
+                        </select>
                         {errors.YearOfRecruitment?.message && (
                           <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
                             {errors.YearOfRecruitment.message}
@@ -285,15 +306,37 @@ const Form = ({ onClickFunction }: any) => {
                       >
                         Domain
                       </label>
-                      <div className="mt-2">
-                        <input
+                      <div className="mt-2 relative">
+                        <select
                           id="Domain"
-                          type="Domain"
                           {...register("Domain")}
                           autoComplete="Domain"
-                          placeholder="Domain"
                           className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                        />
+                        >
+                          <option value="" selected>
+                            Select from dropdown
+                          </option>
+                          <option value="all">All</option>
+                          <option value="web">Web</option>
+                          <option value="app">App</option>
+                          <option value="cloud">Cloud</option>
+                          <option value="cyber">Cyber</option>
+                          <option value="ml">Machine Learning</option>
+                          <option value="video_editing">Video Editing</option>
+                          <option value="graphics_designing">
+                            Graphics Designing
+                          </option>
+                          <option value="content_writing">
+                            Content Writing
+                          </option>
+                          <option value="marketing">Marketing</option>
+                          <option value="finance">Finance</option>
+                          <option value="public_relations">
+                            Public Relations
+                          </option>
+                          <option value="creative">Creative</option>
+                          <option value="design">Design</option>
+                        </select>
                         {errors.Domain?.message && (
                           <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
                             {errors.Domain.message}
@@ -318,8 +361,18 @@ const Form = ({ onClickFunction }: any) => {
           )}
         </form>
       </div>
-      {currentStep === 1 && <Button onClickFunction={next}>Next</Button>}
-      {currentStep === 2 && <Button onClickFunction={next}>Submit</Button>}
+      {currentStep === 1 && (
+        <div className="flex justify-between items-center">
+          <Button onClickFunction={prev}>Prev</Button>
+          <Button onClickFunction={next}>Next</Button>
+        </div>
+      )}
+      {currentStep === 2 && (
+        <div className="flex justify-between items-center">
+          <Button onClickFunction={prev}>Prev</Button>
+          <Button onClickFunction={next}>Submit</Button>
+        </div>
+      )}
       {currentStep === 3 && (
         <Button onClickFunction={onClickFunction}>Complete</Button>
       )}

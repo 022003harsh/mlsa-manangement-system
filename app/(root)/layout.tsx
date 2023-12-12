@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "@/components/shared/sidebar/Sidebar";
-import MarginWidthWrapper from "@/components/shared/sidebar/Margin-width-weapper";
-import PageWrapper from "@/components/shared/sidebar/Page-wrapper";
+import MarginWidthWrapper from "@/components/shared/sidebar/MarginWidthWeapper";
+import PageWrapper from "@/components/shared/sidebar/PageWrapper";
 
 export default function RootLayout({
   children,
