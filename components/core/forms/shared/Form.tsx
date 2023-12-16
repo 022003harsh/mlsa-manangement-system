@@ -1,65 +1,142 @@
 "use client";
 
-import { useState } from "react";
+import React, { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
-import { FormDataSchema } from "@/lib/schema";
+import { FormDataSchemaMember } from "@/lib/schema";
+import { FormDataSchemaEvent } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler,useForm  } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "./Button";
+import InputField from "./InputField";
+import SelectField from "./SelectField";
+import { useEffect } from "react";
 
-type Inputs = z.infer<typeof FormDataSchema>;
+type InputsMember = z.infer<typeof FormDataSchemaMember>;
+type InputsEvent = z.infer<typeof FormDataSchemaEvent>;
 
-const steps = [
-  {
-    id: "Step 1",
-    name: "Input Format",
-  },
-  {
-    id: "Step 2",
-    name: "personal info",
-    fields: ["Name", "RollNumber", "Gender", "Year"],
-  },
-  {
-    id: "Step 3",
-    name: "technical info",
-    fields: ["YearOfRecruitment", "Stream", "Domain"],
-  },
-  { id: "Step 4", name: "Complete" },
-];
+const steps1 = {
+  member: [
+    {
+      id: "Step 1",
+      name: "Input Format",
+    },
+    {
+      id: "Step 2",
+      name: "personal info",
+      fields: ["Name", "RollNumber", "Gender", "Year"],
+    },
+    {
+      id: "Step 3",
+      name: "technical info",
+      fields: ["YearOfRecruitment", "Stream", "Domain"],
+    },
+    { id: "Step 4", name: "Complete" },
+  ],
+  event: [
+    {
+      id: "Step 1",
+      name: "Input Format",
+    },
+    {
+      id: "Step 2",
+      name: "personal info",
+      fields: ["Name", "Date", "Domain", "TargetYear"],
+    },
+    {
+      id: "Step 3",
+      name: "technical info",
+      fields: ["ExpectedParticipants", "ActualParticipants", "Thumbnail"],
+    },
+    { id: "Step 4", name: "Complete" },
+  ],
+  sponsor: [
+    {
+      id: "Step 1",
+      name: "Input Format",
+    },
+    {
+      id: "Step 2",
+      name: "personal info",
+      fields: ["Name", "Date", "Domain", "TargetYear"],
+    },
+    {
+      id: "Step 3",
+      name: "technical info",
+      fields: ["ExpectedParticipants", "ActualParticipants", "Thumbnail"],
+    },
+    { id: "Step 4", name: "Complete" },
+  ],
+};
 
-const Form = ({ onClickFunction }: any) => {
+interface FormProps {
+  value: keyof typeof steps1; // Ensure value is one of the keys of steps1
+  onClickFunction: any;
+}
+
+const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
+  const [currentData, setCurrentData] = useState<any>(null);
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
 
+  useEffect(() => {
+    setCurrentData(steps1[value]);
+  }, [value]);
+  // console.log(currentData);
   const {
     register,
     handleSubmit,
     reset,
     trigger,
     formState: { errors },
-  } = useForm<Inputs>({
-    resolver: zodResolver(FormDataSchema),
+  } = useForm<InputsMember>({
+    resolver: zodResolver(FormDataSchemaMember),
   });
 
-  const processForm: SubmitHandler<Inputs> = (data) => {
+  const {
+    register: register2, // Use register from the second hook
+    handleSubmit: handleSubmit2,
+    reset: reset2,
+    trigger: trigger2,
+    formState: { errors: errors2 },
+  } = useForm<InputsEvent>({
+    resolver: zodResolver(FormDataSchemaEvent),
+  });
+
+  const processForm: SubmitHandler<InputsMember> = (data) => {
     console.log(data);
     reset();
   };
+  const processForm2: SubmitHandler<InputsEvent> = (data) => {
+    console.log(data);
+    reset2();
+  };
 
-  type FieldName = keyof Inputs;
+  type FieldName = keyof InputsMember;
+  type FieldName2 = keyof InputsEvent;
 
   const next = async () => {
-    const fields = steps[currentStep].fields;
+    const fields = currentData[currentStep].fields;
     const output = await trigger(fields as FieldName[], { shouldFocus: true });
+    const output2 = await trigger2(fields as FieldName2[], {
+      shouldFocus: true,
+    });
 
-    if (!output) return;
+    if (!output && value === "member") return;
+    if (!output2 && (value === "event" || value === "sponsor")) return;
 
-    if (currentStep < steps.length - 1) {
-      if (currentStep === steps.length - 2) {
+    if (currentStep < currentData.length - 1) {
+      if (currentStep === currentData.length - 2 && value === "member") {
         await handleSubmit(processForm)();
       }
+      if (
+        currentStep === currentData.length - 2 &&
+        (value === "event" || value === "sponsor")
+      ) {
+        await handleSubmit2(processForm2)();
+      }
+
       setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
     }
@@ -92,9 +169,9 @@ const Form = ({ onClickFunction }: any) => {
                   <path
                     d="M1 1L5 6L1 11"
                     stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
@@ -125,111 +202,96 @@ const Form = ({ onClickFunction }: any) => {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
                 <div className="py-[1.85rem] px-[2.6rem] flex flex-col space-y-[2.1rem] w-full h-full">
-                  <div className="flex flex-col space-y-[0.6rem] relative">
-                    <label
-                      htmlFor="Name"
-                      className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
-                    >
-                      Name
-                    </label>
-                    <div className="w-full">
-                      <input
-                        type="text"
+                  {value === "member" && (
+                    <>
+                      <InputField
+                        label="Name"
                         id="Name"
-                        {...register("Name")}
-                        autoComplete="given-name"
+                        register={register}
                         placeholder="Name"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                        error={errors.Name?.message}
                       />
-                      {errors.Name?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
-                          {errors.Name.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col space-y-[0.6rem] relative">
-                    <label
-                      htmlFor="RollNumber"
-                      className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
-                    >
-                      Roll Number
-                    </label>
-                    <div className="w-full">
-                      <input
-                        type="text"
+                      <InputField
+                        label="Roll Number"
                         id="RollNumber"
-                        {...register("RollNumber")}
-                        autoComplete="identical-name"
+                        register={register}
                         placeholder="Roll Number"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                        error={errors.RollNumber?.message}
                       />
-                      {errors.RollNumber?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
-                          {errors.RollNumber.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col space-y-[0.6rem] relative">
-                    <label
-                      htmlFor="Gender"
-                      className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
-                    >
-                      Gender
-                    </label>
-                    <div className="mt-2">
-                      <select
+                      <SelectField
+                        label="Gender"
                         id="Gender"
-                        {...register("Gender")}
-                        autoComplete="Gender"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                      >
-                        <option value="" selected>
-                          Select from dropdown
-                        </option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="others">Others</option>
-                      </select>
-                      {errors.Gender?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
-                          {errors.Gender.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col space-y-[0.6rem] relative">
-                    <label
-                      htmlFor="Year"
-                      className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
-                    >
-                      Year
-                    </label>
-                    <div className="mt-2 relative">
-                      <select
+                        register={register}
+                        options={[
+                          { value: "male", label: "Male" },
+                          { value: "female", label: "Female" },
+                          { value: "others", label: "Others" },
+                        ]}
+                        error={errors.Gender?.message}
+                      />
+                      <SelectField
+                        label="Year"
                         id="Year"
-                        {...register("Year")}
-                        autoComplete="family-name"
-                        className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                      >
-                        <option value="" selected>
-                          Select from dropdown
-                        </option>
-                        <option value="1st">1st</option>
-                        <option value="2nd">2nd</option>
-                        <option value="3rd">3rd</option>
-                      </select>
-                      {errors.Year?.message && (
-                        <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
-                          {errors.Year.message}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                        register={register}
+                        options={[
+                          { value: "1st", label: "1st" },
+                          { value: "2nd", label: "2nd" },
+                          { value: "3rd", label: "3rd" },
+                        ]}
+                        error={errors.Year?.message}
+                      />
+                    </>
+                  )}
+                  {(value === "event" || value === "sponsor") && (
+                    <>
+                      <InputField
+                        label="Name"
+                        id="Name"
+                        register={register2}
+                        placeholder="Name"
+                        error={errors2.Name?.message}
+                      />
+                      <InputField
+                        label="Date"
+                        id="Date"
+                        register={register2}
+                        placeholder="DD/MM/YY"
+                        error={errors2.Date?.message}
+                      />
+                      <SelectField
+                        label="Domain"
+                        id="Domain"
+                        register={register2}
+                        options={[
+                          { value: "all", label: "All" },
+                          { value: "web", label: "Web" },
+                          { value: "app", label: "App" },
+                          { value: "cloud", label: "Cloud" },
+                          { value: "cyber", label: "Cyber" },
+                          { value: "ml", label: "Machine Learning" },
+                          { value: "video_editing", label: "Video Editing" },
+                          {
+                            value: "graphics_designing",
+                            label: "Graphics Designing",
+                          },
+                          // Add other options as needed
+                        ]}
+                        error={errors2.Domain?.message}
+                      />
+                      <SelectField
+                        label="Target Year"
+                        id="TargetYear"
+                        register={register2}
+                        options={[
+                          { value: "1st", label: "1st" },
+                          { value: "2nd", label: "2nd" },
+                          { value: "3rd", label: "3rd" },
+                          { value: "4th", label: "4th" },
+                        ]}
+                        error={errors2.TargetYear?.message}
+                      />
+                    </>
+                  )}
                 </div>
               </motion.div>
             </>
@@ -244,106 +306,83 @@ const Form = ({ onClickFunction }: any) => {
                   className="h-full"
                 >
                   <div className="px-[2.6rem] flex flex-col items-center justify-center space-y-[2.1rem] w-full h-full">
-                    <div className="flex flex-col w-full space-y-[0.6rem] relative">
-                      <label
-                        htmlFor="YearOfRecruitment"
-                        className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
-                      >
-                        Year of Recruitment
-                      </label>
-                      <div className="w-full relative">
-                        <select
+                    {value === "member" && (
+                      <>
+                        <SelectField
+                          label="Year of Recruitment"
                           id="YearOfRecruitment"
-                          {...register("YearOfRecruitment")}
-                          autoComplete="YearOfRecruitment"
-                          className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                        >
-                          <option value="" selected>
-                            Select from dropdown
-                          </option>
-                          <option value="2018-2019">2018-2019</option>
-                          <option value="2019-2020">2019-2020</option>
-                          <option value="2020-2021">2020-2021</option>
-                          <option value="2021-2022">2021-2022</option>
-                          <option value="2022-2023">2022-2023</option>
-                        </select>
-                        {errors.YearOfRecruitment?.message && (
-                          <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
-                            {errors.YearOfRecruitment.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col w-full space-y-[0.6rem] relative">
-                      <label
-                        htmlFor="Stream"
-                        className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
-                      >
-                        Stream
-                      </label>
-                      <div className="w-full">
-                        <input
-                          type="text"
-                          id="Stream"
-                          {...register("Stream")}
-                          autoComplete="identical-name"
-                          placeholder="Stream"
-                          className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
+                          register={register}
+                          options={[
+                            { value: "2018-2019", label: "2018-2019" },
+                            { value: "2019-2020", label: "2019-2020" },
+                            { value: "2020-2021", label: "2020-2021" },
+                            { value: "2021-2022", label: "2021-2022" },
+                            { value: "2022-2023", label: "2022-2023" },
+                          ]}
+                          error={errors.YearOfRecruitment?.message}
                         />
-                        {errors.Stream?.message && (
-                          <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
-                            {errors.Stream.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col w-full space-y-[0.6rem] relative">
-                      <label
-                        htmlFor="Domain"
-                        className="text-[1.4rem] font-medium leading-[2rem] text-[#0F172A]"
-                      >
-                        Domain
-                      </label>
-                      <div className="mt-2 relative">
-                        <select
+                        <SelectField
+                          label="Stream"
+                          id="Stream"
+                          register={register}
+                          options={[
+                            { value: "B.tech", label: "B.Tech" },
+                            //(other options)
+                          ]}
+                          error={errors.Stream?.message}
+                        />
+                        <SelectField
+                          label="Domain"
                           id="Domain"
-                          {...register("Domain")}
-                          autoComplete="Domain"
-                          className="px-[1.2rem] py-[0.8rem] w-full leading-[2.4rem] rounded-[0.6rem] border border-[#94A3B8] outline-none text-[1.6rem] text-[#94A3B8]"
-                        >
-                          <option value="" selected>
-                            Select from dropdown
-                          </option>
-                          <option value="all">All</option>
-                          <option value="web">Web</option>
-                          <option value="app">App</option>
-                          <option value="cloud">Cloud</option>
-                          <option value="cyber">Cyber</option>
-                          <option value="ml">Machine Learning</option>
-                          <option value="video_editing">Video Editing</option>
-                          <option value="graphics_designing">
-                            Graphics Designing
-                          </option>
-                          <option value="content_writing">
-                            Content Writing
-                          </option>
-                          <option value="marketing">Marketing</option>
-                          <option value="finance">Finance</option>
-                          <option value="public_relations">
-                            Public Relations
-                          </option>
-                          <option value="creative">Creative</option>
-                          <option value="design">Design</option>
-                        </select>
-                        {errors.Domain?.message && (
-                          <p className="mt-2 text-[1rem] text-red-400 absolute left-[0rem] -bottom-[1.4rem]">
-                            {errors.Domain.message}
-                          </p>
-                        )}
+                          register={register}
+                          options={[
+                            { value: "all", label: "All" },
+                            { value: "web", label: "Web" },
+                            { value: "app", label: "App" },
+                            { value: "cloud", label: "Cloud" },
+                            { value: "cyber", label: "Cyber" },
+                            { value: "ml", label: "Machine Learning" },
+                            { value: "video_editing", label: "Video Editing" },
+                            {
+                              value: "graphics_designing",
+                              label: "Graphics Designing",
+                            },
+                            // Add other options as needed
+                          ]}
+                          error={errors.Domain?.message}
+                        />
+                      </>
+                    )}
+                    {(value === "event" || value === "sponsor") && (
+                      <div className="w-full flex flex-col space-y-[2.1rem]">
+                        <div className="flex space-x-[2rem]">
+                          <InputField
+                            label="Participants"
+                            id="ExpectedParticipants"
+                            register={register2}
+                            placeholder="Expected"
+                            error={errors2.ExpectedParticipants?.message}
+                          />
+                          <div className="mt-auto">
+                            <InputField
+                              label=""
+                              id="ActualParticipants"
+                              register={register2}
+                              placeholder="Actual"
+                              error={errors2.ActualParticipants?.message}
+                            />
+                          </div>
+                        </div>
+
+                        <InputField
+                          label="Thumbnail"
+                          id="Thumbnail"
+                          register={register2}
+                          placeholder="Thumbnail"
+                          error={errors2.Thumbnail?.message}
+                        />
                       </div>
-                    </div>
+                    )}
                   </div>
                 </motion.div>
               </div>

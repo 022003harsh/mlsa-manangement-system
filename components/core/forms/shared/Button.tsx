@@ -28,7 +28,7 @@ const Button = ({ children, onClickFunction }: any) => {
       )}
 
       <div>{children}</div>
-      {children === "Next" && children === "Close" && (
+      {(children === "Next" || children === "Submit") && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="6"

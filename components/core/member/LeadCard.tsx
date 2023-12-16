@@ -1,11 +1,13 @@
+// LeadCard.tsx
 import React from "react";
 import Image from "next/image";
 
 interface LeadProps {
   member: any; // Replace 'any' with the actual type of your member data
+  onLeadArrowClick: (member: any) => void;
 }
 
-const Lead: React.FC<LeadProps> = ({ member }) => {
+const Lead: React.FC<LeadProps> = ({ member, onLeadArrowClick }) => {
   return (
     <div className="shadow-custom p-[1rem] flex justify-between items-center rounded-[0.5rem]">
       <div className="flex space-x-[0.8rem] items-center">
@@ -30,6 +32,8 @@ const Lead: React.FC<LeadProps> = ({ member }) => {
         width="6"
         height="15"
         className="w-[0.6rem] h-[1.5rem] cursor-pointer"
+        // Call the onLeadArrowClick callback when the arrow is clicked
+        onClick={() => onLeadArrowClick(member)}
       />
     </div>
   );
