@@ -151,7 +151,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
 
   return (
     <div className="flex flex-col space-y-[1.4rem]">
-      <div className="w-full min-h-[40.6rem] h-[40.6rem] rounded-[0.3rem] border border-[#0000001f]">
+      <div className="h-[40.6rem] min-h-[40.6rem] w-full rounded-[0.3rem] border border-[#0000001f]">
         {currentStep === 0 && (
           <div className="w-full h-full flex items-center justify-center border">
             <div className="flex flex-col justify-center items-center">
@@ -175,12 +175,12 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
                   />
                 </svg>
               </div>
-              <div className="flex items-center justify-center w-full gap-[0.2rem]">
-                <div className="border-b mt-1 w-full text-[#94A3B8B2]"></div>
-                <div className="text-[#94A3B8B2] text-[1.2rem] font-medium leading-[2.4rem]">
+              <div className="flex w-full items-center justify-center gap-[0.2rem]">
+                <div className="mt-1 w-full border-b text-[#94A3B8B2]"></div>
+                <div className="text-[1.2rem] font-medium leading-[2.4rem] text-[#94A3B8B2]">
                   or
                 </div>
-                <div className="border-b mt-1 w-full text-[#94A3B8B2]"></div>
+                <div className="mt-1 w-full border-b text-[#94A3B8B2]"></div>
               </div>
 
               <div
@@ -193,7 +193,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
           </div>
         )}
 
-        <form className=" w-full h-full " onSubmit={handleSubmit(processForm)}>
+        <form className=" h-full w-full " onSubmit={handleSubmit(processForm)}>
           {currentStep === 1 && (
             <>
               <motion.div
@@ -298,7 +298,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
           )}
           {currentStep === 2 && (
             <>
-              <div className="h-full flex flex-col w-full">
+              <div className="flex h-full w-full flex-col">
                 <motion.div
                   initial={{ x: delta >= 0 ? "2%" : "-2%", opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -390,7 +390,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
           )}
           {currentStep === 3 && (
             <>
-              <div className="h-full w-full flex flex-col items-center justify-center gap-3">
+              <div className="flex h-full w-full flex-col items-center justify-center gap-3">
                 <h2 className="text-4xl font-bold">Complete</h2>
                 <p className="text-2xl font-medium text-[#94A3B8]">
                   Thank you for your submission.

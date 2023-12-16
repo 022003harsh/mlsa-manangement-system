@@ -1,11 +1,4 @@
-import { SideNavItem } from "@/types/types";
-import { MembersDataItem } from "@/types/types";
-import { ModalItem } from "@/types/types";
-import { Sponsors } from "@/types/types";
-import { Events } from "@/types/types";
-import { Schema } from "mongoose";
-import { string, number, boolean } from "zod";
-
+import { SideNavItem, MembersDataItem, ModalItem } from "@/types/types";
 
 export const SIDEBAR_MENU: SideNavItem[] = [
   {
@@ -418,17 +411,20 @@ export const MODAL: ModalItem[] = [
   {
     value: "member",
     topic: "Add a Member",
-    description: "Add a new member or add members in batches by dragging in a csv file. Members can add details later on."
+    description:
+      "Add a new member or add members in batches by dragging in a csv file. Members can add details later on.",
   },
   {
     value: "event",
     topic: "Add an Event",
-    description: "Add basic details for the new event or add by dragging in a csv file with all data."
+    description:
+      "Add basic details for the new event or add by dragging in a csv file with all data.",
   },
   {
     value: "sponsor",
     topic: "Add a Sponsor",
-    description: "Add details about the sponsor, upload the pdf for Memorandum of Understanding"
+    description:
+      "Add details about the sponsor, upload the pdf for Memorandum of Understanding",
   },
 ];
 
