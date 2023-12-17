@@ -5,7 +5,8 @@ import Headingcount from "@/components/shared/Headingcount";
 
 const Memberstable = () => {
   return (
-    <div className="flex h-full max-h-[38rem] w-[70%] flex-col space-y-[0.7rem] ">
+    <div className="w-[70%] h-[38rem] flex flex-col space-y-[0.7rem] ">
+
       <div className="flex flex-col space-y-[0.7rem] pl-[0.5rem]">
         <Headingcount name={"Members"} count={"87"} />
         <Filter />

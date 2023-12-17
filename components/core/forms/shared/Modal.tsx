@@ -58,19 +58,31 @@ const Modal: React.FC<ModalProps> = ({
                 </div>
               )
             )}
-          {feature === "form" && <Form onClickFunction={onClose} />}
+          {feature === "form" && value === "member" && (
+            <Form value="member" onClickFunction={onClose} />
+          )}
+          {feature === "form" && value === "sponsor" && (
+            <Form value="sponsor" onClickFunction={onClose} />
+          )}
+          {feature === "form" && value === "event" && (
+            <Form value="event" onClickFunction={onClose} />
+          )}
           {feature === "confirmation" && (
             <div className="flex flex-col space-y-[2rem]">
               <div>
-              <div className="text-[2rem] text-black">Delete Confirmation</div>
-              <div className="border border-b"></div>
+                <div className="text-[2rem] text-black">
+                  Delete Confirmation
+                </div>
+                <div className="border border-b"></div>
               </div>
-              
-              <div className="text-[1.5rem] text-pallete-500">Do u want to delete member {value} ?</div>
+
+              <div className="text-[1.5rem] text-pallete-500">
+                Do u want to delete member {value} ?
+              </div>
               <div className="flex justify-between items-center">
-              <Button onClickFunction={onClose}>Cancel</Button>
-              <Button onClickFunction={onClose}>Delete</Button>  
-              {/* remove on close from it */}
+                <Button onClickFunction={onClose}>Cancel</Button>
+                <Button onClickFunction={onClose}>Delete</Button>
+                {/* remove on close from it */}
               </div>
             </div>
           )}
