@@ -79,3 +79,14 @@ export type ModalItem = {
   topic: string;
   description: string;
 };
+
+export type EventDetailItem = {
+  iconURL: string;
+  name: string;
+  detail: string;
+}
+
+export type EventSponsorItem = {
+  iconURL: string;
+  name: string;
+}

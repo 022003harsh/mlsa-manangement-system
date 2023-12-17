@@ -38,7 +38,7 @@ const Member: React.FC = () => {
 
       <Leads onLeadArrowClick={handleLeadArrowClick} />
 
-      <div className="mt-[2.6rem] flex min-h-[38.1rem] flex-row space-x-[1.5rem] pr-[0.5rem]">
+      <div className="mt-[2.6rem] flex h-[calc(100vh-36rem)] border border-red-400 flex-row space-x-[1.5rem] pr-[0.5rem]">
         <Memberstable />
         <div className="w-[30%] min-h-full border ml-[1.5rem]">
           {selectedLead && <LeadsNotion selectedLead={selectedLead} />}

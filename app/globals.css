@@ -90,7 +90,7 @@
 
 /* scrollbar in tables */
 .custom-scrollbar {
-  max-height: 500px; /* Set your desired max height */
+  max-height: 700px; /* Set your desired max height */
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #4a5568 #edf2f7; /* Customize the scrollbar colors */
