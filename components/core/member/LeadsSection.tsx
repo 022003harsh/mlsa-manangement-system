@@ -12,8 +12,9 @@ const Leads = ({ onLeadArrowClick }: { onLeadArrowClick: (member: any) => void }
     onLeadArrowClick(member);
   };
 
+
   return (
-    <div className="flex flex-col mt-[2.6rem] px-[0.5rem]">
+    <div className="mt-[2.6rem] flex flex-col px-[0.5rem]">
       <Headingcount name={"Leads"} count={"16"} />
       <div className="mt-[0.4rem]">
         <div className="w-full grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 gap-[1.6rem]">

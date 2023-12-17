@@ -1,7 +1,7 @@
 import React from "react";
-import Headingcount from "@/components/shared/HeadingCount";
 import Filter from "@/components/shared/table/FilterSection";
 import Table from "@/components/shared/table/Table";
+import Headingcount from "@/components/shared/Headingcount";
 
 const Memberstable = () => {
   return (

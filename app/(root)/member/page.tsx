@@ -7,6 +7,7 @@ import Modal from "@/components/core/forms/shared/Modal";
 import Memberstable from "@/components/core/member/MembersTable";
 import LeadsNotion from "@/components/core/member/LeadsNotion";
 
+
 const Member: React.FC = () => {
   // const [searchResults, setSearchResults] = useState(MEMBERS_DATA);
   const handleSearch = (results: any[]) => {

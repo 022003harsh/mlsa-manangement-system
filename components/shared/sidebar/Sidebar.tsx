@@ -3,9 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import { SIDEBAR_MENU } from "@/constants";
-import { MenuItem } from "./MenuItem";
+import { MenuItem } from "./Menuitem";
 
-const Sidebar = () => { 
+const Sidebar = () => {
   return (
     <div className="fixed flex h-screen w-[20.7rem] flex-1 bg-[#E2E8F0]">
       <div className="flex w-full flex-col space-y-[5rem] px-[1.4rem]">
@@ -13,7 +13,6 @@ const Sidebar = () => {
           <Link href="/profile" className="">
             <div className="flex items-center justify-center space-x-[1rem] ">
               <div>
-
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="57"
