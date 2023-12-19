@@ -33,7 +33,7 @@ export interface IEvent extends Document {
   sponsors: Schema.Types.ObjectId[]; // for list of sponsors
 }
 
-const EventSchema = new Schema({
+const EventSchema = new Schema<IEvent>({
   name: { type: String, required: true },
   date: { type: Date, required: true },
   location: { type: String, required: true },
@@ -68,7 +68,7 @@ const EventSchema = new Schema({
   duration: { type: Number, required: true },
   is_completed: { type: Boolean, required: true },
   is_published: { type: Boolean, required: true },
-  sponsors: { type: Schema.Types.ObjectId, required: true, ref: "Sponsor" },
+  sponsors: [{ type: Schema.Types.ObjectId, required: true, ref: "Sponsor" }],
 });
 
 const Event = models.Event || model<IEvent>("Event", EventSchema);

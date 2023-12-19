@@ -16,7 +16,7 @@ export interface ISponsor extends Document {
   sponsor_field?: "education" | "technology" | "finance" | "other";
 }
 
-const SponsorSchema = new Schema({
+const SponsorSchema = new Schema<ISponsor>({
   name: { type: String, required: true },
   logo_URL: { type: String, required: true },
   website_URL: { type: String, required: true },

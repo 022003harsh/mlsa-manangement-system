@@ -1,16 +1,14 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
-import { FormDataSchemaMember } from "@/lib/schema";
-import { FormDataSchemaEvent } from "@/lib/schema";
+import { FormDataSchemaMember, FormDataSchemaEvent } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "./Button";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
-import { useEffect } from "react";
 
 type InputsMember = z.infer<typeof FormDataSchemaMember>;
 type InputsEvent = z.infer<typeof FormDataSchemaEvent>;
@@ -153,10 +151,10 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
     <div className="flex flex-col space-y-[1.4rem]">
       <div className="h-[40.6rem] min-h-[40.6rem] w-full rounded-[0.3rem] border border-[#0000001f]">
         {currentStep === 0 && (
-          <div className="w-full h-full flex items-center justify-center border">
-            <div className="flex flex-col justify-center items-center">
-              <div className="flex items-center justify-between space-x-[2rem] rounded-[0.6rem] px-[1.4rem] py-[0.8rem] bg-black">
-                <div className="text-white text-[1.4rem] leading-[2.4rem] font-medium cursor-pointer">
+          <div className="flex h-full w-full items-center justify-center border">
+            <div className="flex flex-col items-center justify-center">
+              <div className="flex items-center justify-between space-x-[2rem] rounded-[0.6rem] bg-black px-[1.4rem] py-[0.8rem]">
+                <div className="cursor-pointer text-[1.4rem] font-medium leading-[2.4rem] text-white">
                   Upload CSV
                 </div>
                 <svg
@@ -184,7 +182,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
               </div>
 
               <div
-                className="px-[1.6rem] py-[0.8rem] text-[1.4rem] font-medium leading-[2.4rem] rounded-[0.6rem] border border-black cursor-pointer"
+                className="cursor-pointer rounded-[0.6rem] border border-black px-[1.6rem] py-[0.8rem] text-[1.4rem] font-medium leading-[2.4rem]"
                 onClick={() => setCurrentStep(currentStep + 1)}
               >
                 Enter Manually
@@ -201,7 +199,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                <div className="py-[1.85rem] px-[2.6rem] flex flex-col space-y-[2.1rem] w-full h-full">
+                <div className="flex h-full w-full flex-col space-y-[2.1rem] px-[2.6rem] py-[1.85rem]">
                   {value === "member" && (
                     <>
                       <InputField
@@ -305,7 +303,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="h-full"
                 >
-                  <div className="px-[2.6rem] flex flex-col items-center justify-center space-y-[2.1rem] w-full h-full">
+                  <div className="flex h-full w-full flex-col items-center justify-center space-y-[2.1rem] px-[2.6rem]">
                     {value === "member" && (
                       <>
                         <SelectField
@@ -327,7 +325,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
                           register={register}
                           options={[
                             { value: "B.tech", label: "B.Tech" },
-                            //(other options)
+                            // (other options)
                           ]}
                           error={errors.Stream?.message}
                         />
@@ -354,7 +352,7 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
                       </>
                     )}
                     {(value === "event" || value === "sponsor") && (
-                      <div className="w-full flex flex-col space-y-[2.1rem]">
+                      <div className="flex w-full flex-col space-y-[2.1rem]">
                         <div className="flex space-x-[2rem]">
                           <InputField
                             label="Participants"
@@ -401,13 +399,13 @@ const Form: React.FC<FormProps> = ({ value, onClickFunction }) => {
         </form>
       </div>
       {currentStep === 1 && (
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Button onClickFunction={prev}>Prev</Button>
           <Button onClickFunction={next}>Next</Button>
         </div>
       )}
       {currentStep === 2 && (
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Button onClickFunction={prev}>Prev</Button>
           <Button onClickFunction={next}>Submit</Button>
         </div>

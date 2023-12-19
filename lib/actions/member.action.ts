@@ -1,12 +1,10 @@
-"use server";
-
-import Member from "@/database/member.model";
+import Member, { IMember } from "@/database/member.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import { CreateMemberParams } from "./shared.types";
 
 // create member function
-export async function createMember(memberData: CreateMemberParams) {
+export async function createMember(memberData: IMember) {
   try {
     connectToDatabase(); // from mongoose.ts
     const newMember = await Member.create(memberData);
@@ -27,6 +25,18 @@ export async function getMemberById(params: any) {
     return member;
   } catch (error) {
     console.log("Error in getting member by id", error);
+    throw error;
+  }
+}
+
+// get all member
+export async function getAllMember() {
+  try {
+    connectToDatabase();
+    const members = await Member.find();
+    return members;
+  } catch (error) {
+    console.log("Error in getting all member", error);
     throw error;
   }
 }

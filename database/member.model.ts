@@ -34,11 +34,11 @@ export interface IMember extends Document {
   youtube_URL?: string;
   x_URL?: string;
   drive_URL?: string;
-  domain: Schema.Types.ObjectId;
   type: "member" | "lead";
+  personal_email_id: string;
 }
 
-const MemberSchema = new Schema({
+const MemberSchema = new Schema<IMember>({
   clerkId: { type: String, required: true },
   name: { type: String, required: true },
   kiit_email_id: { type: String, required: true },
@@ -86,11 +86,6 @@ const MemberSchema = new Schema({
   youtube_URL: { type: String },
   x_URL: { type: String },
   drive_URL: { type: String },
-  domain: {
-    type: String,
-    ref: "Domain",
-    required: true,
-  },
 });
 
 const Member = models.Member || model("Member", MemberSchema);

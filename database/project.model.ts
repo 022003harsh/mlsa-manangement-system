@@ -13,7 +13,7 @@ export interface IProject extends Document {
   documentation_link?: string;
 }
 
-const ProjectSchema = new Schema({
+const ProjectSchema = new Schema<IProject>({
   name: { type: String, required: true },
   description: { type: String, required: true },
   domain: [{ type: Schema.Types.ObjectId, ref: "Domain" }],

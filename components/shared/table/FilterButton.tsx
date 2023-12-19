@@ -6,7 +6,10 @@ interface Value {
 
 const Button: React.FC<Value> = ({ value }) => {
   return (
-    <div onClick={()=>{}} className="flex items-center space-x-[0.6rem] px-[1.6rem] border border-black rounded-full cursor-pointer">
+    <div
+      onClick={() => {}}
+      className="flex cursor-pointer items-center space-x-[0.6rem] rounded-full border border-black px-[1.6rem]"
+    >
       <div className="text-[1rem] font-semibold leading-[2.4rem] ">{value}</div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

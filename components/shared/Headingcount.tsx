@@ -1,11 +1,11 @@
 import React from "react";
 
-interface HeadingCount {
+interface HeadingCountProps {
   name: string;
   count: string;
 }
 
-const Headingcount: React.FC<HeadingCount> = ({ name, count }) => {
+const Headingcount: React.FC<HeadingCountProps> = ({ name, count }) => {
   return (
     <>
       {name === "Leads" && (
@@ -20,7 +20,7 @@ const Headingcount: React.FC<HeadingCount> = ({ name, count }) => {
             <div>{name}</div>
             <p className="text-[#94A3B8] ">({count})</p>
           </div>
-          <div className="flex items-center space-x-[0.2rem] px-[1rem] bg-black rounded-full cursor-pointer">
+          <div className="flex cursor-pointer items-center space-x-[0.2rem] rounded-full bg-black px-[1rem]">
             <div className="text-[1rem] font-semibold leading-[2.4rem] text-white">
               Filters
             </div>

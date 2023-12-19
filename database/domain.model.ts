@@ -18,10 +18,10 @@ export interface IDomain extends Document {
   description: string;
   createdOn: Date;
   events: Schema.Types.ObjectId[];
-  pojects: Schema.Types.ObjectId[];
+  projects: Schema.Types.ObjectId[];
 }
 
-const DomainSchema = new Schema({
+const DomainSchema = new Schema<IDomain>({
   name: {
     type: String,
     enum: [
@@ -40,7 +40,7 @@ const DomainSchema = new Schema({
       "ar_vr",
     ],
   },
-  descrption: { type: String, required: true },
+  description: { type: String, required: true },
   createdOn: { type: Date, required: true },
   events: [{ type: Schema.Types.ObjectId, ref: "Event" }],
   projects: [{ type: Schema.Types.ObjectId, ref: "Project" }],
